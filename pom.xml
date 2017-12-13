@@ -51,6 +51,7 @@
 		<metadatamappingVersion>1.3.2</metadatamappingVersion>
         <uicommonsVersion>2.3.0</uicommonsVersion>
         <webservicesRestVersion>2.11</webservicesRestVersion>
+		<registrationcoreVersion>1.7.2-SNAPSHOT</registrationcoreVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -235,6 +236,12 @@
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>webservices.rest-omod-common</artifactId>
 				<version>${webservicesRestVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>registrationcore-api</artifactId>
+				<version>${registrationcoreVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 		</dependencies>

@@ -9,6 +9,9 @@ import org.openmrs.api.IdentifierNotUniqueException;
 import org.openmrs.api.InvalidCheckDigitException;
 import org.openmrs.api.InvalidIdentifierFormatException;
 import org.openmrs.api.PatientService;
+import org.openmrs.event.Event;
+import org.openmrs.event.EventMessage;
+import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -86,6 +89,10 @@ public class EditPatientIdentifierFragmentController {
 			patient.addIdentifier(patientIdentifier);
 			try {
                 patientService.savePatient(patient);
+
+				EventMessage eventMessage = new EventMessage();
+				eventMessage.put(RegistrationCoreConstants.KEY_PATIENT_UUID, patient.getUuid());
+				Event.fireEvent(RegistrationCoreConstants.PATIENT_EDIT_EVENT_TOPIC_NAME, eventMessage);
 			}
 			catch (Exception e) {
 				return new FailureResult(ui.message("coreapps.patientDashBoard.editPatientIdentifier.failureMessage") + " "
