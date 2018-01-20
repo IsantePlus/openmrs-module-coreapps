@@ -1,4 +1,5 @@
 function PatientSearchWidget(configuration){
+
     var defaults = {
         minSearchCharacters: 3,
         searchInputId: 'patient-search',
@@ -234,6 +235,7 @@ function PatientSearchWidget(configuration){
         highlightedMouseRowIndex = undefined;
         jq('#'+tableId).find('td.dataTables_empty').html(config.messages.noData);
     }
+    this.reset = reset;
 
     var updateSearchResults = function(results){
         var dataRows = [];
@@ -299,6 +301,8 @@ function PatientSearchWidget(configuration){
         }
         afterSearchResultsUpdated = [];
     }
+    this.updateSearchResults = updateSearchResults;
+
 
     // remove any patients from a results list that are already in the search results
     // this is necessary because the searchOnIdentifiers performs multiple searchs and could return duplicates

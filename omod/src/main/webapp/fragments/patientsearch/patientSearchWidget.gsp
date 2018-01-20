@@ -42,6 +42,8 @@
         }
     }
     var handlePatientRowSelection =  new handlePatientRowSelection();
+
+    var patientSearchWidget;
     jq(function() {
         var widgetConfig = {
             initialPatients: lastViewedPatients,
@@ -76,7 +78,7 @@
             }
         };
 
-        new PatientSearchWidget(widgetConfig);
+        patientSearchWidget = new PatientSearchWidget(widgetConfig);
     });
 </script>
 
