@@ -259,9 +259,12 @@ function PatientSearchWidget(configuration){
                 }
                 var identifier = patient.patientIdentifier.identifier;
                 if(_.contains(initialPatientUuids, patient.uuid)){
-                    identifier = patient.patientIdentifier.identifier+
-                        " <span class='recent-lozenge'>"+config.messages.recent+"</span>";
+                    identifier += " <span class='recent-lozenge'>" + config.messages.recent + "</span>";
                 }
+                if (patient.onlyInMpi === true) {
+                    identifier += " <span class='recent-lozenge'>" + config.messages.onlyInMpi + "</span>";
+                }
+
                 var age = patient.person.age;
                 if(age == '' && widgetBirthdate != ''){
                     age = formatAge(widgetBirthdate);
