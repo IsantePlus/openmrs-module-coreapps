@@ -56,6 +56,10 @@ function PatientSearchWidget(configuration){
     // Creole not currently supported by Moment and for some reason it defaults to Japaneses if we don't explicitly set fallback options in the locale() call
     moment.locale([configuration.locale, configuration.defaultLocale, 'en']);
 
+    this.setHandleRowSelection = function(handleRowSelection) {
+        config.handleRowSelection = handleRowSelection;
+    }
+
     function formatAge(widgetBirthdate){
         var bdate = moment(widgetBirthdate, 'YYYY-MM-DD');
         var age = moment().diff(bdate, 'months', false);
@@ -255,9 +259,12 @@ function PatientSearchWidget(configuration){
                 }
                 var identifier = patient.patientIdentifier.identifier;
                 if(_.contains(initialPatientUuids, patient.uuid)){
-                    identifier = patient.patientIdentifier.identifier+
-                        " <span class='recent-lozenge'>"+config.messages.recent+"</span>";
+                    identifier += " <span class='recent-lozenge'>" + config.messages.recent + "</span>";
                 }
+                if (patient.onlyInMpi === true) {
+                    identifier += " <span class='recent-lozenge'>" + config.messages.onlyInMpi + "</span>";
+                }
+
                 var age = patient.person.age;
                 if(age == '' && widgetBirthdate != ''){
                     age = formatAge(widgetBirthdate);
