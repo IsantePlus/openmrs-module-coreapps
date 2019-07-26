@@ -13,15 +13,22 @@
  */
 package org.openmrs.module.coreapps.fragment.controller.clinicianfacing;
 
+import org.openmrs.Concept;
+import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.ObsService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.coreapps.CoreAppsProperties;
-import org.openmrs.module.emrapi.diagnosis.Diagnosis;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.fragment.FragmentConfiguration;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 public class DiagnosisWidgetFragmentController {
@@ -30,6 +37,9 @@ public class DiagnosisWidgetFragmentController {
 						   @InjectBeans CoreAppsProperties properties) {
 		config.require("patient");
 		Object patient = config.get("patient");
+		
+		ObsService obsService = Context.getObsService();
+		ConceptService conceptService = Context.getConceptService();
 
 		if (patient instanceof Patient) {
 			patientWrapper.setPatient((Patient) patient);
@@ -43,8 +53,20 @@ public class DiagnosisWidgetFragmentController {
 		int days = properties.getRecentDiagnosisPeriodInDays();
 		Calendar recent = Calendar.getInstance();
 		recent.set(Calendar.DATE, -days);
-
-		List<Diagnosis> recentDiagnoses = patientWrapper.getUniqueDiagnosesSince(recent.getTime());
-		config.addAttribute("recentDiagnoses", recentDiagnoses);
+		
+		Concept diagnosisConcept = conceptService.getConcept(new Integer(1284));
+		List<Obs> diagnosisList = obsService.getObservationsByPersonAndConcept(patientWrapper.getPatient(), diagnosisConcept);
+		
+		Set<Concept> diagnosisSet = new HashSet<Concept>();
+		Iterator<Obs> it = diagnosisList.iterator();
+		
+		while (it.hasNext()) {
+			Obs obs = it.next();
+			if (!diagnosisSet.add(obs.getValueCoded())) {
+				it.remove();
+			}
+		}
+		
+		config.addAttribute("recentDiagnoses", diagnosisList);
 	}
 }

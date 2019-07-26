@@ -10,10 +10,10 @@
         <ul>
             <% config.recentDiagnoses.each { %>
             <li>
-            <% if(it.diagnosis.nonCodedAnswer) { %>
-                "${ui.escapeHtml(it.diagnosis.nonCodedAnswer)}"
+            <% if(it.valueText) { %>
+                "${ui.escapeHtml(it.valueText)}"
             <% } else { %>
-                ${ui.format(it.diagnosis.codedAnswer)}
+                ${ui.format(it.valueCoded)}
             <% } %>
             </li>
             <% } %>
