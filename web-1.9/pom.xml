@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.openmrs.module</groupId>
         <artifactId>coreapps</artifactId>
-        <version>1.19.2</version>
+        <version>1.19.3</version>
     </parent>
 
     <artifactId>coreapps-web-1.9</artifactId>
