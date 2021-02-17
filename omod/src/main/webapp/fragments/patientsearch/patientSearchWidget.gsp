@@ -6,6 +6,7 @@
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
     ui.includeJavascript("coreapps", "patientsearch/patientSearchWidget.js")
+    ui.includeJavascript("coreapps", "patientsearch/mpiPatientSearchWidget.js")
     ui.includeJavascript("uicommons", "moment-with-locales.min.js")
 %>
 <script type="text/javascript">
@@ -44,6 +45,7 @@
     var handlePatientRowSelection =  new handlePatientRowSelection();
 
     var patientSearchWidget;
+    var mpiPatientSearchWidget;
     jq(function() {
         var widgetConfig = {
             initialPatients: lastViewedPatients,
@@ -75,11 +77,13 @@
                 ageColHeader: '${ ui.message("coreapps.age") }',
                 birthdateColHeader: '${ ui.message("coreapps.birthdate") }',
                 ageInMonths: '${ ui.message("coreapps.age.months") }',
-                ageInDays: '${ ui.message("coreapps.age.days") }'
+                ageInDays: '${ ui.message("coreapps.age.days") }',
+                actionColHeader: '${ ui.message("coreapps.action") }'
             }
         };
 
         patientSearchWidget = new PatientSearchWidget(widgetConfig);
+        mpiPatientSearchWidget = new MpiPatientSearchWidget(widgetConfig);
     });
 </script>
 

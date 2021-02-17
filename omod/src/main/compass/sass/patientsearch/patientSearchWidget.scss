@@ -54,7 +54,17 @@ $green: #51A351;
     cursor: pointer;
   }
 
+  #mpi-patient-search-results-table tbody tr:hover{
+    background-color: $rowHighlightBackground;
+    cursor: pointer;
+  }
+
   #patient-search-results-table tbody tr:hover {
+    background: $link;
+    cursor: pointer;
+    color: white;
+  }
+  #mpi-patient-search-results-table tbody tr:hover {
     background: $link;
     cursor: pointer;
     color: white;
@@ -65,8 +75,16 @@ $green: #51A351;
     cursor: default;
     color: #363463;
   }
+  #mpi-patient-search-results-table tbody tr td.dataTables_empty:hover{
+    background: white;
+    cursor: default;
+    color: #363463;
+  }
 
   #patient-search-results-table_wrapper {
+     min-height: 0px;
+  }
+  #mpi-patient-search-results-table_wrapper {
      min-height: 0px;
   }
 }
